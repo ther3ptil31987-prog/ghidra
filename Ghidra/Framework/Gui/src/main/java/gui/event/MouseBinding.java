@@ -42,22 +42,18 @@ public class MouseBinding {
 	private static final Map<String, Integer> MODIFIERS_BY_TEXT = createModifiersMap();
 
 	private static Map<String, Integer> createModifiersMap() {
-		return Collections.unmodifiableMap(
-			Map.of(
-				getModifiersExText(ALT_DOWN_MASK),
-				ALT_DOWN_MASK,
 
-				getModifiersExText(ALT_GRAPH_DOWN_MASK),
-				ALT_GRAPH_DOWN_MASK,
+		Map<String, Integer> map = new HashMap<>();
+		map.put(getModifiersExText(ALT_GRAPH_DOWN_MASK), ALT_DOWN_MASK);
 
-				getModifiersExText(CTRL_DOWN_MASK),
-				CTRL_DOWN_MASK,
+		// have this go second to prefer 'alt' when the OS does not distinguish between the two
+		map.put(getModifiersExText(ALT_DOWN_MASK), ALT_DOWN_MASK);
 
-				getModifiersExText(META_DOWN_MASK),
-				META_DOWN_MASK,
+		map.put(getModifiersExText(CTRL_DOWN_MASK), CTRL_DOWN_MASK);
+		map.put(getModifiersExText(META_DOWN_MASK), META_DOWN_MASK);
+		map.put(getModifiersExText(SHIFT_DOWN_MASK), SHIFT_DOWN_MASK);
 
-				getModifiersExText(SHIFT_DOWN_MASK),
-				SHIFT_DOWN_MASK));
+		return Collections.unmodifiableMap(map);
 	}
 
 	private int modifiers = -1;
